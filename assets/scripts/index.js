@@ -2,9 +2,13 @@
 
 const setAPIOrigin = require('../../lib/set-api-origin')
 const config = require('./config')
+const userEvents = require('./auth/auth-events')
 
 $(() => {
   setAPIOrigin(location, config)
+  userEvents.addHandlers()
+  $('.modal').on('hidden.bs.modal', () => $('form').find('input:not([type="submit"])').val(''))
+  $('.modal').on('hidden.bs.modal', () => $('textarea').val(''))
 })
 
 // use require with a reference to bundle the file and use it in this file

@@ -2,7 +2,8 @@
 
 const config = {
   apiOrigins: {
-    production: 'https://ga-wdi-boston.herokuapp.com'
+    production: 'https://cryptic-shelf-20832.herokuapp.com',
+    development: 'http://localhost:4741'
   }
 }
 

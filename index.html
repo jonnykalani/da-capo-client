@@ -12,7 +12,7 @@
       <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
     </head>
     <body class="container-fluid">
-      <h1>Example</h1>
+      <h1>Da Capo</h1>
 
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
       eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -21,5 +21,88 @@
       velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
       cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
       est laborum.</p>
+      <p id="message" class="alert" role="alert"></p>
+      <div class='signed-out-buttons'>
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#sign-up-modal">
+          Sign Up
+        </button>
+        <br />
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#sign-in-modal">
+          Sign In
+        </button>
+      </div>
+
+    <div class="modal fade" id="sign-up-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content signupcontent">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Sign-up!</h4>
+            </div>
+            <div class="modal-body">
+              <form id="sign-up" class="border">
+                <fieldset>
+                  <input type="text" name="credentials[email]" id="username-id-create" placeholder="Email" required>
+                  <input type="password" name="credentials[password]" id="password-id-create" placeholder="Password" required>
+                  <input type="password" name="credentials[password_confirmation]" placeholder="Confirm Password" required><br>
+                  <button type="submit" class="btn btn-info">Submit</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </fieldset>
+              </form>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+      <div class="modal fade" id="sign-in-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content signincontent">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Sign-in!</h4>
+            </div>
+            <div class="modal-body">
+              <form id="sign-in" class="border">
+                <fieldset>
+                  <input type="text" name="credentials[email]" placeholder="Email" required>
+                  <input type="password" name="credentials[password]" placeholder="Password" required><br>
+                  <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#sign-in-modal">Submit</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </fieldset>
+              </form>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+      <div class='signed-in-buttons'>
+      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#change-password-modal">
+          Change Password
+        </button>
+        <form id="sign-out">
+          <input type="submit" class="btn btn-danger" value="Sign out!">
+        </form>
+      </div>
+
+      <div class="modal fade" id="change-password-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content changepasswordcontent">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Change Password!</h4>
+            </div>
+            <div class="modal-body">
+              <form id="change-password" class="border">
+                <fieldset>
+                  <input type="password" name="passwords[old]" placeholder="Old Password" required>
+                  <input type="password" name="passwords[new]" placeholder="New Password" required><br>
+                  <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#change-password-modal">Submit</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </fieldset>
+              </form>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
     </body>
+
 </html>

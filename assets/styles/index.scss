@@ -1,2 +1,13 @@
 $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
+
+#message {
+  display: none;
+  margin: 1% 10%;
+}
+
+.otherforms,
+.signed-in-buttons {
+  display: none;
+  margin: 2% 10%;
+}
