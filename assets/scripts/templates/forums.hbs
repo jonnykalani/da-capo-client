@@ -1,0 +1,13 @@
+{{#each forums as |forum|}}
+  <div data-id="{{forum.id}}">
+    <div class="forumborder">
+      <p class="resource-body">{{forum.body}}</p>
+      <p class="resource-body">{{forum.createdAt}}</p>
+    </div>
+  </div>
+  {{else}}
+
+  <h2 class="resource-body">{{user}} has not posted any blog entries yet</h2>
+{{/each}}
+
+<span class="page-links" id="back-link">Return to Main</span>

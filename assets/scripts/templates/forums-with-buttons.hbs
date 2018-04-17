@@ -1,0 +1,19 @@
+{{#each forums as |forum|}}
+  <div data-id="{{forum.id}}">
+    <div class="forumborder">
+      <ul>
+        <br />
+        <li class="resource-body">{{forum.body}}</li>
+        <li class="resource-body">{{forum.createdAt}}</li>
+        <button class="forum-update forum-btn btn btn-sm btn-info" data-id={{forum.id}}>Update</button>
+        <!-- <br /> -->
+        <button class="forum-delete forum-btn btn btn-sm btn-danger" data-id={{forum.id}}>Delete</button>
+      </ul>
+    </div>
+  </div>
+  {{else}}
+
+  <h2 class="resource-body">{{user}} has not posted any blog entries yet</h2>
+{{/each}}
+
+<span class="page-links" id="back-link">Return to Main</span>

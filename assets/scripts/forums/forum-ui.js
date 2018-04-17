@@ -1,6 +1,11 @@
 'use strict'
 
 const store = require('../store.js')
+const compare = require('../customsorterforposts.js')
+
+const forumInfoTemplate = require('../templates/forums.hbs')
+const forumInfoTemplateWithButtons = require('../templates/forums-with-buttons.hbs')
+let forumInfoData
 
 const createForumSuccess = function (data) {
   $('#create-forum-modal').modal('hide')
@@ -81,6 +86,33 @@ const deleteForumFailure = function () {
   $('#message').delay(3000).slideToggle()
 }
 
+const showForums = function (data) {
+  console.log('data in showForums is ', data)
+  data.forums.sort(compare)
+  forumInfoData = forumInfoTemplate({
+    forums: data.forums,
+    user: data.forums._owner
+  })
+  // if (store.user) {
+  //   if (store.user.id === store.viewed_user.user_id) {
+  //     forumInfoData = forumInfoTemplateWithButtons({ forums: data.forums,
+  //       user: store.viewed_user.user_id})
+  //   } else {
+  //     forumInfoData = forumInfoTemplate({ forums: data.forums,
+  //       user: store.viewed_user.user_id})
+  //   }
+  // } else {
+  //   forumInfoData = forumInfoTemplate({ forums: data.forums,
+  //     user: store.viewed_user.user_id})
+  // }
+  $('form').find('input:not([type="submit"])').val('')
+  $('#content').html(forumInfoData)
+  $('#message').text('Retrieved forums successfully!')
+  $('#message').removeClass('alert-danger').addClass('alert-success').show()
+  $('form').find('input:not([type="submit"])').val('')
+  return data
+}
+
 module.exports = {
   createForumSuccess,
   createForumFailure,
@@ -91,5 +123,6 @@ module.exports = {
   updateForumSuccess,
   updateForumFailure,
   deleteForumSuccess,
-  deleteForumFailure
+  deleteForumFailure,
+  showForums
 }

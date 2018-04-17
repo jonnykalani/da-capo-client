@@ -1,6 +1,30 @@
 $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
 
+header {
+  background-color: #000;
+  background-image: linear-gradient(transparent, black), url('https://i.imgur.com/ZwJKzHe.jpg');
+  position: relative;
+  height: 66%;
+  width: 100%;
+  min-height: 400px;
+  color: white;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+header h1,
+header h3 {
+  margin-top: 5px;
+}
+
+.spacer-variable {
+  height: 20vh;
+}
+
 #message {
   display: none;
   margin: 1% 10%;

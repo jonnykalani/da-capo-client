@@ -1,6 +1,6 @@
-const api = require('./api')
+const api = require('./forum-api')
 const getFormFields = require('../../../lib/get-form-fields')
-const ui = require('./ui')
+const ui = require('./forum-ui')
 
 const onCreateForum = function (event) {
   event.preventDefault()
@@ -10,10 +10,12 @@ const onCreateForum = function (event) {
     .catch(ui.createcreateForumFailure)
 }
 
-const onGetForums = function (event) {
+const onGetAllForums = function (event) {
   event.preventDefault()
+  console.log('onGetAllForums was triggered')
   api.getForums()
-    .then(ui.getForumsSuccess)
+    // .then(ui.getForumsSuccess)
+    .then(ui.showForums)
     .catch(ui.getForumsFailure)
 }
 
@@ -57,10 +59,10 @@ const onDeleteForum = function (event) {
 
 const addHandlers = () => {
   $('#create-forum').on('submit', onCreateForum)
-  $('#get-forums').on('submit', onGetForums)
+  $('#show-all-forums-button').on('click', onGetAllForums)
   $('#get-forum').on('submit', onGetForum)
   $('#update-forum').on('submit', onUpdateForum)
-  $('#delete-forum').on('submit', onDeleteForum)
+  $('#delete-forum').on('click', onDeleteForum)
 }
 
 module.exports = {

@@ -3,10 +3,12 @@
 const setAPIOrigin = require('../../lib/set-api-origin')
 const config = require('./config')
 const userEvents = require('./auth/auth-events')
+const forumEvents = require('./forums/forum-events')
 
 $(() => {
   setAPIOrigin(location, config)
   userEvents.addHandlers()
+  forumEvents.addHandlers()
   $('.modal').on('hidden.bs.modal', () => $('form').find('input:not([type="submit"])').val(''))
   $('.modal').on('hidden.bs.modal', () => $('textarea').val(''))
 })

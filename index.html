@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-      <title>Example</title>
+      <title>da capo</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
 
       <!-- Do not add `link` tags-->
@@ -11,10 +11,34 @@
       <script src="public/vendor.js" type="text/javascript" charset="utf-8" defer></script>
       <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
     </head>
-    <body class="container-fluid">
-      <h1>da capo</h1>
 
-      <p>a forum for musicians</p>
+    <body class="container-fluid">
+
+      <header>
+        <div class="header-content align-bottom">
+          <div class="header-content-inner">
+            <div class="spacer-variable"></div>
+            <div class="container">
+              <div class="col-md-12 align-middle">
+                <div class="col-md-4 align-middle" style="display: flex; flex-direction: column;">
+                  <h1 style="text-align: right;">da capo</h1>
+                  <h3 style="text-align: right;">a forum for musicians</h3>
+                </div>
+
+                <div class="col-md-8 text-left">
+                  <p>“I’m sick to death of people saying we’ve made 11 albums that sound exactly the same. In fact, we’ve made 12 albums that sound exactly the same.”
+                    ― Angus Young (AC/DC)
+                  </p>
+                  <p>“Actually I don’t remember being born, it must have happened during one of my black outs.”
+                    ― Jim Morrison
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
       <p id="message" class="alert" role="alert"></p>
       <div class='signed-out-buttons'>
         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#sign-up-modal">
@@ -69,7 +93,8 @@
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
       <div class='signed-in-buttons'>
-      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#change-password-modal">
+        <button id="show-all-forums-button" type="button" class="btn btn-info get-button">browse forums</button>
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#change-password-modal">
           Change Password
         </button>
         <form id="sign-out">
@@ -97,6 +122,8 @@
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
+      <div id="content"></div>
+
     </body>
 
 </html>
