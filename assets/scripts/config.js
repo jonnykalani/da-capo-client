@@ -2,7 +2,7 @@
 
 const config = {
   apiOrigins: {
-    production: 'https://cryptic-shelf-20832.herokuapp.com',
+    production: ' https://morning-stream-87669.herokuapp.com/',
     development: 'http://localhost:4741'
   }
 }
