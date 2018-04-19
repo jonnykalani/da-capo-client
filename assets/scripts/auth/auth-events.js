@@ -50,7 +50,7 @@ const onViewUserInfo = function (event) {
   api.getUser(data.users.user_id)
     .then(ui.viewOrgInfo)
     .then(() => {
-      return forumApi.getOwnedWebpages(data.users.user_id)
+      return forumApi.getOwnedForums(data.users.user_id)
     })
     .then(ui.showForums)
     .catch(console.error)

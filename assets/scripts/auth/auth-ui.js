@@ -32,12 +32,12 @@ const signUpFailure = function (error) {
 }
 
 const signInSuccess = function (data) {
-  $('.signed-in-buttons').show()
+  $('.signed-in-buttons').delay(300).slideToggle('slow')
   $('.signed-out-buttons').hide()
-  $('#message').text('Signed in Successfully!')
+  $('#message').text('you\'re signed in     :)')
   $('#message').removeClass('alert-danger').addClass('alert-success').show()
   $('form').find('input:not([type="submit"])').val('')
-  $('#message').delay(3000).slideToggle()
+  $('#message').delay(1600).slideToggle()
   // below is for the token
   store.user = data.user
   // $('#sign-in').val('')
@@ -45,7 +45,7 @@ const signInSuccess = function (data) {
 
 const signInFailure = function (error) {
   store.error = error
-  $('#message').text('Error on signing in!')
+  $('#message').text('wrong email or password')
   $('#message').removeClass('alert-success').addClass('alert-danger').show()
   $('form').find('input:not([type="submit"])').val('')
   $('#message').delay(3000).slideToggle()

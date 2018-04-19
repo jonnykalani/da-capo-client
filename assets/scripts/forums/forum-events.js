@@ -1,3 +1,5 @@
+'use strict'
+
 const api = require('./forum-api')
 const getFormFields = require('../../../lib/get-form-fields')
 const ui = require('./forum-ui')
@@ -29,15 +31,6 @@ const onGetForum = function (event) {
     .catch(ui.getForumFailure)
 }
 
-const onUpdateForum = function (event) {
-  event.preventDefault()
-  const data = getFormFields(event.target)
-  api.updateForum(data)
-    .then(() => ui.updateForumSuccess(data))
-    .then((data) => api.getForum(data.forum.id))
-    .catch(ui.updateForumFailure)
-}
-
 // const onBlogPostUpdate = function () {
 //   event.preventDefault()
 //   const data = getFormFields(event.target)
@@ -61,11 +54,9 @@ const addHandlers = () => {
   $('#create-forum').on('submit', onCreateForum)
   $('#show-all-forums-button').on('click', onGetAllForums)
   $('#get-forum').on('submit', onGetForum)
-  $('#update-forum').on('submit', onUpdateForum)
   $('#delete-forum').on('click', onDeleteForum)
 }
 
 module.exports = {
-  addHandlers,
-  onUpdateForum
+  addHandlers
 }

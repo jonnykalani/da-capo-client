@@ -1,0 +1,11 @@
+{{#each forums as |forum|}}
+  <form id="update-forum" class="border">
+    <fieldset>
+      <form id="update-forum" class="border">
+        <textarea class="form-control" id="update-forum-body" name="forum[body]" placeholder="body" rows="3" required>{{forum.body}}</textarea>
+        <button type="submit" class="btn btn-dark-in" data-toggle="modal" data-target="#update-forum-modal">Submit</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </form>
+    </fieldset>
+  </form>
+{{/each}}

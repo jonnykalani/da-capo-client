@@ -2,18 +2,27 @@ $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
 @import '~bootstrap-sass/assets/stylesheets/bootstrap';
 
 header {
-  background-color: #000;
-  background-image: linear-gradient(transparent, black), url('https://i.imgur.com/ZwJKzHe.jpg');
+  // background-color: #000;
+  background-image: linear-gradient(black, transparent), url('https://i.imgur.com/ZwJKzHe.jpg');
   position: relative;
-  height: 66%;
+  height: 80%;
   width: 100%;
-  min-height: 400px;
+  min-height: 500px;
   color: white;
   background-size: cover;
   background-position: center;
   display: flex;
   justify-content: center;
   flex-direction: column;
+}
+
+.da-capo {
+  font-size: 62px;
+}
+
+#quotes {
+  // display: none;
+  font-size: 16px;
 }
 
 header h1,
@@ -30,8 +39,91 @@ header h3 {
   margin: 1% 10%;
 }
 
+.alert-success {
+  background: linear-gradient(to left, transparent, white);
+  border-radius: 2px;
+  border-color: transparent;
+  color: #444;
+  width: 25%;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.alert-danger {
+  background: linear-gradient(to left, transparent, red);
+  border-radius: 2px;
+  border-color: transparent;
+  color: white;
+  width: 25%;
+}
+
+.btn-dark {
+  background-color: white;
+  color: #444;
+  transition: all .5s;
+}
+
+.btn-dark:hover {
+  background-color: transparent;
+  color: white;
+  border-radius: 1px;
+  border-color: white;
+}
+
+.btn-dark-in {
+  background-color: #444;
+  color: white;
+  transition: all .5s;
+  margin: 5px;
+}
+
+.btn-dark-in:hover {
+  background-color: transparent;
+  color: #444;
+  border-radius: 1px;
+  border-color: #444;
+}
+
+.signed-out-buttons {
+  margin: 2% 10%;
+}
+
 .otherforms,
 .signed-in-buttons {
   display: none;
   margin: 2% 10%;
+}
+
+.spacer {
+  display: block;
+  height: 100px;
+  width: 100%;
+}
+
+.forumborder {
+  border: 3px solid #444;
+  border-radius: 3px;
+  list-style: none;
+  margin: 15px;
+  padding: 15px;
+  width: 90%;
+}
+
+.resource-body {
+    color: #444;
+    font-size: 18px;
+    line-height: 1.6;
+    list-style: none;
+    margin: 10px auto;
+    padding: 0 10px;
+    width: 70%;
+}
+
+.sign-out-button {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-right: 20px;
+    padding: 1rem;
+    clear: top;
 }

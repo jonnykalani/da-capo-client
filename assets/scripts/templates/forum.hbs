@@ -1,21 +1,24 @@
-{{#each comments as |comment|}}
-  <div data-id="{{comment.id}}">
-    <div class="blogborder">
-      <ul>
-      <li class="resource-header">{{comment._owner.organization}}</li>
-      <li class="resource-header">{{comment.title}}</li>
-        <br />
-        <li class="resource-body">{{comment.body}}</li>
-        <li class="resource-body">{{comment.createdAt}}</li>
-        <button class="comment-update blogpost-btn btn btn-sm btn-info" data-id={{comment.id}}>Update</button>
-        <!-- <br /> -->
-        <button class="comment-delete blogpost-btn btn btn-sm btn-danger" data-id={{comment.id}}>Delete</button>
-      </ul>
-    </div>
+<div class="forumborder">
+  <h2 class="resource-body">{{forum.body}}</h2>
+  <div class="resource-body">posted by: {{user}}</div>
+  {{#each comments as |comment|}}
+  <div class="comment-body">
+    <h3 class="resource-body">{{comment.body}}</h3>
+    <div class="resource-body">commented by: {{comment._owner}}</div>
   </div>
-  {{else}}
-
-  <h2 class="resource-body">{{user}} has not posted any forums yet</h2>
-{{/each}}
-
-<span class="page-links" id="back-link">Return to Main</span>
+  {{!-- <button class="btn btn-dark-in" id="delete-comment-open-modal" type="submit" data-toggle="modal" data-target="#confirm-delete">
+  delete
+  </button> --}}
+<form value="{{comment.id}}"class="delete-comment-simple">
+  <input class="form-control" name="comment[id]" type="hidden" data-id="{{comment.id}}">
+  <button data="{{forum._id}}" value="{{comment.id}}" type="submit" class="btn btn-dark-in">
+  delete
+  </button>
+</form>
+  {{/each}}
+  <form id="comment-submit">
+    <input name="forum[_id]" type="hidden" value="{{forum._id}}">
+    <textarea class="form-control" name="comment[body]" placeholder="comment" rows="3" required></textarea>
+    <button type="submit" class="btn btn-dark-in">comment</button>
+  </form>
+</div>

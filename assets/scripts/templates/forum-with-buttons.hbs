@@ -1,0 +1,49 @@
+<div class="forumborder">
+  <div class="resource-body">you opened this forum</div>
+  <h2 class="resource-body">{{forum.body}}</h2>
+  <div class="resource-body">posted by: {{user}}</div>
+  <button class="btn btn-dark-in forum-update-open-modal" data-target=".update-forum-modal" data-toggle="modal">Update</button>
+
+  {{#each comments as |comment|}}
+  <div class="comment-body">
+    <h3 class="resource-body">{{comment.body}}</h3>
+    <div class="resource-body">commented by: {{comment._owner}}</div>
+  </div>
+  <form class="delete-comment-simple">
+    <input class="form-control" name="comment[_id]" type="hidden" data-id="{{comment._id}}">
+    <button value="{{comment._id}}" type="submit" class="btn btn-dark-in">
+    delete
+    </button>
+  </form>
+  {{/each}}
+
+  <form id="comment-submit">
+    <input name="forum[_id]" type="hidden" value="{{forum._id}}">
+    <textarea class="form-control" name="comment[body]" placeholder="comment" rows="3" required></textarea>
+    <button type="submit" class="btn btn-dark-in">comment</button>
+  </form>
+</div>
+
+{{!-- <div class="modal fade update-forum-modal"  tabindex="-1" role="dialog">
+<div class="modal-dialog modal-sm" role="document">
+  <div class="modal-content updateforumcontent">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title">edit forum</h4>
+    </div>
+    <div class="modal-body">
+      <fieldset>
+        <form id="update-forum-submit" class="border" data-id="{{forum.id}}">
+          <textarea class="form-control" name="forum[body]" placeholder="body" rows="3" required></textarea>
+          <button type="submit" class="btn btn-dark-in">save changes</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </form>
+      </fieldset>
+    </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal --> --}}
+
+
+
+<span class="page-links" id="back-link">Return to Main</span>

@@ -3,7 +3,7 @@ function compare (a, b) {
   const postB = b.createdAt
 
   let comparison = 0
-  if (postA > postB) {
+  if (postA < postB || postA === postB) {
     comparison = 1
   } else if (postA < postB) {
     comparison = -1

@@ -33,6 +33,7 @@ const getForums = function () {
 }
 
 const getForum = function (data) {
+  console.log('data in getForm API is', data)
   token = ''
   if (store.user) {
     token = store.user.token
@@ -48,6 +49,23 @@ const getForum = function (data) {
     headers: {
       contentType: 'application/json',
       Authorization: 'Token token=' + token
+    }
+  })
+}
+
+const deleteComment = function (data) {
+  console.log('data in delete api is', data)
+  // if (data.forum) {
+  //   id = data.forum.id
+  // } else {
+  //   id = data
+  // }
+  return $.ajax({
+    url: config.apiOrigin + '/comments/' + data,
+    method: 'DELETE',
+    headers: {
+      contentType: 'application/json',
+      Authorization: 'Token token=' + store.user.token
     }
   })
 }
@@ -89,6 +107,7 @@ const deleteForum = function (data) {
 }
 
 const updateForum = function (data) {
+  console.log('data in api is', data)
   return $.ajax({
     url: config.apiOrigin + '/forums/' + data.forum.id,
     method: 'PATCH',
@@ -106,5 +125,6 @@ module.exports = {
   getOwnedForums,
   deleteForum,
   createForum,
-  updateForum
+  updateForum,
+  deleteComment
 }
