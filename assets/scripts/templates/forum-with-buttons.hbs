@@ -1,24 +1,29 @@
 <div class="forumborder">
-  <div class="resource-body">you opened this forum</div>
+  <div class="forum-message">you opened this forum</div>
   <h2 class="forum-header">{{forum.body}}</h2>
   <div class="resource-body">posted by: {{user}}
     <button class="btn btn-sm btn-dark-in forum-update-open-modal" data-target=".update-forum-modal" data-toggle="modal">edit</button>
   </div>
 
 
-  {{#each comments as |comment|}}
+  {{!-- {{#each comments as |comment|}}
   <div class="comment-body comment-border">
     <h3 class="resource-body">{{comment.body}}</h3>
     <div class="resource-body">commented by: {{comment._owner}}
+
+      {{#isSameUser comment._owner currentUser}}
       <form class="delete-comment-simple">
         <input class="form-control" name="comment[_id]" type="hidden" data-id="{{comment._id}}">
         <button value="{{comment._id}}" type="submit" class="btn btn-sm btn-dark-in">
         delete
         </button>
       </form>
+      {{/isSameUser}}
+      {{else}}
+
     </div>
   </div>
-  {{/each}}
+  {{/each}} --}}
 
   <form class="comment-submit">
     <input name="forum[_id]" type="hidden" value="{{forum._id}}">

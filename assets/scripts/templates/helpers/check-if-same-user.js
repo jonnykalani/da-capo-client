@@ -1,9 +1,11 @@
 'use strict'
 
-Handlebars.registerHelper('isSameUser', function () {
-  if (this.comment._owner === currentUser) {
+const isSameUser = function (a, b) {
+  if (a === b) {
     return true
   } else {
     return false
   }
-})
+}
+
+module.exports = isSameUser

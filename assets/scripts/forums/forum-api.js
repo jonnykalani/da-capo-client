@@ -33,16 +33,11 @@ const getForums = function () {
 }
 
 const getForum = function (data) {
-  console.log('data in getForm API is', data)
+  console.log('data in getForum API is', data)
   token = ''
   if (store.user) {
     token = store.user.token
   }
-  // if (data.forum) {
-  //   id = data.forum.id
-  // } else {
-  //   id = data
-  // }
   return $.ajax({
     url: config.apiOrigin + '/forums/' + data,
     method: 'GET',

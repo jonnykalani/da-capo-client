@@ -5,8 +5,11 @@ const compare = require('../customsorterforposts.js')
 const api = require('./forum-api.js')
 const getFormFields = require('../../../lib/get-form-fields')
 // const link = require('./linking-file.js')
-const commentEvents = require('../comments/comment-events.js')
+// const commentEvents = require('../comments/comment-events.js')
 const commentApi = require('../comments/comment-api.js')
+
+const userIsCommenter = require('../templates/user-is-commenter.hbs')
+const userNotCommenter = require('../templates/user-not-commenter.hbs')
 
 const forumInfoTemplate = require('../templates/forums.hbs')
 const showOneForumTemplate = require('../templates/forum.hbs')
@@ -65,60 +68,72 @@ const getForum = function (event) {
 }
 
 let forumData
+let commentTemplate
+let notCommenterTemplate
+let isCommenterTemplate
 
 const getForumSuccess = function (data) {
-  console.log('data in getForumSuccess is', data)
   const ownerOfViewedBlog = data.forum._owner
   currentUser = store.user.id
-  console.log('GETFORUMSUCCESS data.forum.this.comments._owner is', data.forum.comments._owner)
+
+  const commentsArray = data.forum.comments
+  console.log('commentsArray is', commentsArray)
+
+  const checkIfUserIsCommenter = function (array) {
+    $('#comments-div').empty()
+    array.sort(compare)
+    for (let i = 0; i < array.length; i++) {
+      if (array[i]._owner === currentUser) {
+        $('#comments-div').append(userIsCommenter({
+          forum: data.forum,
+          user: store.user.email,
+          comment: array[i]
+        }))
+        console.log('it thinks comment owner is current user and array[i]._owner is', array[i]._owner)
+      } else {
+        $('#comments-div').append(userNotCommenter({
+          forum: data.forum,
+          user: store.user.email,
+          comment: array[i],
+          currentUser: store.user.id
+        }))
+        console.log('it thinks comment owner is NOT user and array[i]._owner is', array[i]._owner)
+      }
+    }
+  }
+
+  checkIfUserIsCommenter(commentsArray)
+
   if (ownerOfViewedBlog === currentUser) {
     forumData = forumInfoTemplateWithButtons({
       forum: data.forum,
       user: store.user.email,
       comments: data.forum.comments,
-      currentUser: store.user.id,
-      commentOwner: data.forum.comments._owner
-      // commentUser: data.forum.comments
+      currentUser: store.user.id
     })
     console.log('it thinks it belongs to current user')
     $('#update-forum-submit').data(data.forum.body.id) // set data-id to data.forum.id
-    // $('#delete-comment-open-modal').on('click', () => {
-      // console.log('delete modal should open')
-      // $('.confirm-delete-modal').modal('show')
-      // $(this).find('.delete-comment-simple').on('submit', deleteComment)
-    // })
-    $('body').on('click', '.delete-comment-simple', deleteComment)
+    $('.delete-comment-simple').on('submit', deleteComment)
+    // $('body').on('click', '.delete-comment-simple', deleteComment)
   } else {
     forumData = showOneForumTemplate({
       forum: data.forum,
       user: data.forum._owner,
-      comments: data.forum.comments
+      comments: data.forum.comments,
+      currentUser: store.user.id
       // commentUser: data.forum.comment
     })
-    console.log('it thinks it does not belong to current user')
-    // $('#delete-comment-open-modal').on('submit', () => {
-      // console.log('delete button was clicked')
-      // $('.confirm-delete-modal').modal('show')
-
-      // $(this).find('.delete-comment-simple').on('submit', (event) => {
-      //   console.log('event is', event)
-      //   deleteComment(event)
-      // })
-    // })
-    $('body').on('click', '.delete-comment-simple', deleteComment)
+    $('.delete-comment-simple').on('submit', deleteComment)
+    // $('body').on('click', '.delete-comment-simple', deleteComment)
   }
   $('#message').text('forum loaded')
   $('#message').removeClass('alert-danger').addClass('alert-success').show()
   $('#message').delay(2000).slideToggle()
   $('#content').html(forumData).css('opacity', .25)
     .animate({
-      // left: '+=50',
       opacity: 1
     }, 1000)
-  // $('.resource-body').animate({
-  //   left: '+=30'
-  // }, 2000)
-  $('#comments-div').delay(1500).slideToggle()
+
   $('#forum-update-open-modal').on('click', () => {
     $('.update-forum-modal').modal('show')
   })
@@ -134,42 +149,6 @@ const getForumSuccess = function (data) {
   //   console.log('delete was clicked')
   // })
 }
-
-// const getForumSuccessAfterUpdate = function (data) {
-//   console.log('data in getForumSuccess is', data)
-//   const ownerOfViewedBlog = data.forum._owner
-//   currentUser = store.user.id
-//   if (ownerOfViewedBlog === currentUser) {
-//     forumData = forumInfoTemplateWithButtons({
-//       forum: data.forum.body,
-//       user: data.forum._owner})
-//     console.log('it thinks it belongs to current user')
-//     console.log('data.forum.comments is', data.forum.comments)
-//   } else {
-//     forumData = showOneForumTemplate({
-//       forum: data.forum.body,
-//       user: data.forum._owner
-//     })
-//     console.log('it thinks it does not belong to current user')
-//     console.log('data.forum.comments is', data.forum.comments)
-//   }
-//   // $('#message').text('forum loaded')
-//   // $('#message').removeClass('alert-danger').addClass('alert-success').show()
-//   // $('#message').delay(2000).slideToggle()
-//   $('#content').html(forumData)
-//   // $('#forum-update-open-modal').on('click', () => {
-//   //   $('.update-forum-modal').modal('show')
-//   // })
-//   // $('#update-forum-submit').on('submit', onUpdateForum)
-// }
-
-// const identifyForumToUpdate = function (event) {
-//   event.preventDefault()
-//   const updateID = event.target.dataset.id
-//   api.getForum(updateID)
-//     .then(onUpdateForum)
-//     .catch(updateForumFailure)
-// }
 
 const onUpdateForum = function (event) {
   event.preventDefault()
@@ -189,13 +168,6 @@ const onUpdateForum = function (event) {
     // .then(getForumSuccessAfterUpdate)
     .then(getForumSuccess)
     .catch(updateForumFailure)
-  // link.getForum(identifyForum)
-  // .then(() => updateForumSuccess())
-  // $('#content').empty()
-  // api.getForums()
-  //   .then(showForums)
-  //   .then(getForumsSuccess)
-  // .catch(getForumsFailure)
 }
 
 const getForumFailure = function () {
@@ -249,18 +221,6 @@ const showForums = function (data) {
     forums: data.forums,
     user: data.forums._owner
   })
-  // if (store.user) {
-  //   if (store.user.id === store.viewed_user.user_id) {
-  //     forumInfoData = forumInfoTemplateWithButtons({ forums: data.forums,
-  //       user: store.viewed_user.user_id})
-  //   } else {
-  //     forumInfoData = forumInfoTemplate({ forums: data.forums,
-  //       user: store.viewed_user.user_id})
-  //   }
-  // } else {
-  //   forumInfoData = forumInfoTemplate({ forums: data.forums,
-  //     user: store.viewed_user.user_id})
-  // }
   $('form').find('input:not([type="submit"])').val('')
   $('#content').html(forumInfoData)
     .css('opacity', .25)
@@ -298,16 +258,13 @@ const comment = function (event) {
 let deleteCommentVariable
 const deleteComment = function (event) {
   event.preventDefault()
-  // const dataId = getFormFields(event.target.value)
-  deleteCommentVariable = event.target.value
-  console.log('event.target is', event.target)
-  console.log('deletion event.target.name is', event.target.name)
-  // let forumIdAfterDeletion = event.target.name
+  deleteCommentVariable = event.target[0].dataset.id
+  console.log('event.target[0].dataset.id is', event.target[0].dataset.id)
+  console.log('deleteCommentVariable is', deleteCommentVariable)
   api.deleteComment(deleteCommentVariable)
-    .catch(console.error)
-    // .then(() => {
-  api.getForum(forumId)
-    // })
+    .then(() => {
+      return api.getForum(forumId)
+    })
     .then((response) => {
       getForumSuccess(response)
       console.log('response to pass from deleteComment to getForumSuccess is', response)

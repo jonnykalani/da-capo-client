@@ -7,6 +7,14 @@
       <!-- Do not add `link` tags-->
       <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 
+      <!-- <script>
+      const socket = io.connect('http://localhost')
+      socket.on('news', function (data) {
+        console.log(data)
+        socket.emit('my other event', { my: 'data' })
+      })
+      </script> -->
+
       <!-- Do not add `script` tags-->
       <script src="public/vendor.js" type="text/javascript" charset="utf-8" defer></script>
       <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
@@ -49,7 +57,7 @@
                     ― Chet Atkins
                   </div> -->
                   <div id="quotes">“I’ve been imitated so well I’ve heard people copy my mistakes.” ― Jimi Hendrix'</div>
-                  <!-- <script>
+                  <script>
                   // function() {
                   //   var quotes = $(".quotes");
                   //   var quoteIndex = -1;
@@ -91,7 +99,7 @@
                 textSequence(0)
             }
           }
-        </script> -->
+        </script>
 
 
 
@@ -161,7 +169,7 @@
       </div><!-- /.modal -->
 
       <div class="col-md-8 text-left">
-        <div class="signed-in-buttons">
+        <div class="comment-border signed-in-buttons">
           <button type="button" class="btn btn-dark-in get-button show-all-forums-button">browse forums</button>
           <button type="button" class="btn btn-dark-in signed-in-buttons" data-toggle="modal" data-target="#create-forum-modal">
             new forum
@@ -221,11 +229,6 @@
       <div id="content" class="zoom"></div>
       <div id="comments-div" class="zoom"></div>
 
-      <div class="col-md-8 text-left">
-        <form id="sign-out">
-          <input type="submit" class="signed-in-buttons btn btn-dark-in sign-out-button" value="sign out">
-        </form>
-      </div>
 
       <div class="modal fade update-forum-modal"  tabindex="-1" role="dialog">
       <div class="modal-dialog modal-sm" role="document">
@@ -262,6 +265,12 @@
             </form>
         </div>
     </div>
+</div>
+
+<div class="col-md-8 text-left">
+  <form id="sign-out">
+    <input type="submit" class="signed-in-buttons btn btn-dark-in sign-out-button" value="sign out">
+  </form>
 </div>
 
     </body>
