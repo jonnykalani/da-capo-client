@@ -1,24 +1,31 @@
 <div class="forumborder">
-  <h2 class="resource-body">{{forum.body}}</h2>
+  <h2 class="forum-header">{{forum.body}}</h2>
   <div class="resource-body">posted by: {{user}}</div>
   {{#each comments as |comment|}}
-  <div class="comment-body">
+  <div class="comment-body comment-border">
     <h3 class="resource-body">{{comment.body}}</h3>
-    <div class="resource-body">commented by: {{comment._owner}}</div>
+    <div class="resource-body">commented by: {{comment._owner}}
+
+      {{#if sameUser}}
+      <form value="{{comment.id}}"class="delete-comment-simple">
+        <input class="form-control" name="comment[id]" type="hidden" data-id="{{comment.id}}">
+        <button data="{{forum._id}}" value="{{comment.id}}" type="submit" class="btn btn-sm btn-dark-in">
+        delete
+        </button>
+      </form>
+      {{/if}}
+
+    </div>
   </div>
   {{!-- <button class="btn btn-dark-in" id="delete-comment-open-modal" type="submit" data-toggle="modal" data-target="#confirm-delete">
   delete
   </button> --}}
-<form value="{{comment.id}}"class="delete-comment-simple">
-  <input class="form-control" name="comment[id]" type="hidden" data-id="{{comment.id}}">
-  <button data="{{forum._id}}" value="{{comment.id}}" type="submit" class="btn btn-dark-in">
-  delete
-  </button>
-</form>
+
   {{/each}}
-  <form id="comment-submit">
+  <form class="comment-submit">
     <input name="forum[_id]" type="hidden" value="{{forum._id}}">
     <textarea class="form-control" name="comment[body]" placeholder="comment" rows="3" required></textarea>
     <button type="submit" class="btn btn-dark-in">comment</button>
   </form>
 </div>
+<button type="button" class="btn btn-dark-in get-button show-all-forums-button">back to forums</button>

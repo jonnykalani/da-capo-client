@@ -5,6 +5,7 @@ const store = require('../store')
 let token
 
 const createComment = function (data) {
+  console.log('data in createComment is', data)
   return $.ajax({
     url: config.apiOrigin + '/comments/',
     method: 'POST',

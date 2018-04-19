@@ -1,23 +1,26 @@
 <div class="forumborder">
   <div class="resource-body">you opened this forum</div>
-  <h2 class="resource-body">{{forum.body}}</h2>
-  <div class="resource-body">posted by: {{user}}</div>
-  <button class="btn btn-dark-in forum-update-open-modal" data-target=".update-forum-modal" data-toggle="modal">Update</button>
+  <h2 class="forum-header">{{forum.body}}</h2>
+  <div class="resource-body">posted by: {{user}}
+    <button class="btn btn-sm btn-dark-in forum-update-open-modal" data-target=".update-forum-modal" data-toggle="modal">edit</button>
+  </div>
+
 
   {{#each comments as |comment|}}
-  <div class="comment-body">
+  <div class="comment-body comment-border">
     <h3 class="resource-body">{{comment.body}}</h3>
-    <div class="resource-body">commented by: {{comment._owner}}</div>
+    <div class="resource-body">commented by: {{comment._owner}}
+      <form class="delete-comment-simple">
+        <input class="form-control" name="comment[_id]" type="hidden" data-id="{{comment._id}}">
+        <button value="{{comment._id}}" type="submit" class="btn btn-sm btn-dark-in">
+        delete
+        </button>
+      </form>
+    </div>
   </div>
-  <form class="delete-comment-simple">
-    <input class="form-control" name="comment[_id]" type="hidden" data-id="{{comment._id}}">
-    <button value="{{comment._id}}" type="submit" class="btn btn-dark-in">
-    delete
-    </button>
-  </form>
   {{/each}}
 
-  <form id="comment-submit">
+  <form class="comment-submit">
     <input name="forum[_id]" type="hidden" value="{{forum._id}}">
     <textarea class="form-control" name="comment[body]" placeholder="comment" rows="3" required></textarea>
     <button type="submit" class="btn btn-dark-in">comment</button>
@@ -46,4 +49,4 @@
 
 
 
-<span class="page-links" id="back-link">Return to Main</span>
+<button type="button" class="btn btn-dark-in get-button show-all-forums-button">back to forums</button>

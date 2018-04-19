@@ -69,13 +69,13 @@ const changePasswordFailure = function (error) {
 }
 
 const signOutSuccess = function (data) {
-  $('#message').text('Signed out successfully!')
+  $('#message').text('you\'re signed out. please come back :(')
   $('#message').removeClass('alert-danger').addClass('alert-success').show()
   $('form').find('input:not([type="submit"])').val('')
   $('.signed-in-buttons').hide()
   $('.signed-out-buttons').show()
   $('.jump-ahead-slogan').show()
-  $('#message').delay(3000).slideToggle()
+  $('#message').delay(2000).slideToggle()
   $('#content').empty()
   store.user = null
 }

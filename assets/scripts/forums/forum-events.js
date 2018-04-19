@@ -52,7 +52,7 @@ const onDeleteForum = function (event) {
 
 const addHandlers = () => {
   $('#create-forum').on('submit', onCreateForum)
-  $('#show-all-forums-button').on('click', onGetAllForums)
+  $('.show-all-forums-button').on('click', onGetAllForums)
   $('#get-forum').on('submit', onGetForum)
   $('#delete-forum').on('click', onDeleteForum)
 }
