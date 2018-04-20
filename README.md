@@ -38,3 +38,5 @@ resource routes:
 .get('/ownedcomments/:id', 'comments#indexByUser')
 .get('/forumcomments/:id', 'comments#indexByForum')
 .get('/ownedimages/:id', 'images#indexByUser')
+
+Screen shot: https://i.imgur.com/yrZTFjf.png
