@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>da capo</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <!-- Do not add `link` tags-->
+      <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
+      <!-- <script>
+      const socket = io.connect('http://localhost')
+      socket.on('news', function (data) {
+        console.log(data)
+        socket.emit('my other event', { my: 'data' })
+      })
+      </script> -->
+
+      <!-- Do not add `script` tags-->
+      <script src="public/vendor.js" type="text/javascript" charset="utf-8" defer></script>
+      <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    </head>
+
+    <body class="container-fluid">
+
+      <header>
+        <div class="header-content align-bottom">
+          <div class="header-content-inner">
+            <!-- <div class="spacer-variable"></div> -->
+            <div class="container">
+              <div class="col-md-12 align-middle">
+                <div class="col-md-4 align-middle da-capo" style="display: flex; flex-direction: column;">
+                  <h1 style="text-align: right;">da capo</h1>
+                  <h3 style="text-align: right;">a forum for musicians</h3>
+                </div>
+
+                <div class="col-md-8 text-left">
+                  <!-- <div class="quotes" id="content-1">“I’m sick to death of people saying we’ve made 11 albums that sound exactly the same. In fact, we’ve made 12 albums that sound exactly the same.”
+                    ― Angus Young (AC/DC)
+                  </div>
+                  <div class="quotes" id="content-2">“Actually I don’t remember being born, it must have happened during one of my black outs.”
+                    ― Jim Morrison
+                  </div>
+                  <div class="quotes" id="content-3">“All the good music has already been written by people with wigs and stuff.”
+                    ― Frank Zappa
+                  </div>
+                  <div class="quotes" id="content-4">“All music is folk music. I ain’t never heard a horse sing a song.”
+                    ― Louis Armstrong
+                  </div>
+                  <div class="quotes" id="content-5">“My music is best understood by children and animals.”
+                    ― Igor Stravinsky
+                  </div>
+                  <div class="quotes" id="content-6">“Do it again on the next verse, and people think you meant it.”
+                    ― Chet Atkins
+                  </div>
+                  <div class="quotes" id="content-7">“Do it again on the next verse, and people think you meant it.”
+                    ― Chet Atkins
+                  </div> -->
+                  <div id="quotes">“I’ve been imitated so well I’ve heard people copy my mistakes.” ― Jimi Hendrix'</div>
+                  <script>
+                  // function() {
+                  //   var quotes = $(".quotes");
+                  //   var quoteIndex = -1;
+                  //   function showNextQuote() {
+                  //       ++quoteIndex
+                  //       quotes.eq(quoteIndex % quotes.length)
+                  //           .fadeIn(2000)
+                  //           .delay(2000)
+                  //           .fadeOut(2000, showNextQuote)
+                  //   }
+                  //   showNextQuote()
+                  // }()
+
+
+                      const quotes = [
+                      'I\'m sick to death of people saying we’ve made 11 albums that sound exactly the same. In fact, we’ve made 12 albums that sound exactly the same." ― Angus Young (AC/DC)',
+                      '“Actually I don’t remember being born, it must have happened during one of my black outs.” ― Jim Morrison',
+                      '“All the good music has already been written by people with wigs and stuff.” ― Frank Zappa',
+                      '“All music is folk music. I ain’t never heard a horse sing a song.” ― Louis Armstrong',
+                      '“My music is best understood by children and animals.” ― Igor Stravinsky',
+                      '“Do it again on the next verse, and people think you meant it.” ― Chet Atkins',
+                      '“There are two golden rules for an orchestra: start together and finish together. The public doesn’t give a damn what goes on in between.” ― Thomas Beecham',
+                      '“I’ve been imitated so well I’ve heard people copy my mistakes.” ― Jimi Hendrix',
+                      '“After I saw Jimmy [Hendrix] play, I just went home and wondered what the f*** I was going to do with my life.” ― Jeff Beck',
+                      '“Money doesn’t talk, it swears.” ― Bob Dylan',
+                      '“Actually I don’t remember being born, it must have happened during one of my black outs.” ― Jim Morrison',
+                      ]
+
+        textSequence(0)
+        function textSequence(i) {
+            if (quotes.length > i) {
+              // $('#quotes').html(quotes[i])fadeIn(400).delay(1000).fadeOut(400)
+              //     textSequence(++i)
+                setTimeout(function() {
+                    document.getElementById("quotes").innerHTML = quotes[i]
+                    textSequence(++i)
+                }, 3500); // 1 second (in milliseconds)
+            } else if (quotes.length == i) { // Loop
+                textSequence(0)
+            }
+          }
+        </script>
+
+
+
+                  <!-- <script>
+                  const divs = $('div[id^="content-"]').hide(),
+                    i = 0
+                    (function cycle() {
+                      divs.eq(i).fadeIn(700).delay(5000).fadeOut(500, cycle)
+                    i = ++i % divs.length
+                  })()
+                  </script> -->
+                  <button type="button" class="btn-dark btn signed-out-buttons" data-toggle="modal" data-target="#sign-in-modal">
+                    Sign In
+                  </button>
+                  <button type="button" class="btn-dark btn signed-out-buttons" data-toggle="modal" data-target="#sign-up-modal">
+                    Sign Up
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p id="message" class="alert" role="alert"></p>
+      </header>
+
+    <div class="modal fade" id="sign-up-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content signupcontent">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Sign-up!</h4>
+            </div>
+            <div class="modal-body">
+              <form id="sign-up" class="border">
+                <fieldset>
+                  <input type="text" name="credentials[email]" id="username-id-create" placeholder="Email" required>
+                  <input type="password" name="credentials[password]" id="password-id-create" placeholder="Password" required>
+                  <input type="password" name="credentials[password_confirmation]" placeholder="Confirm Password" required><br>
+                  <button type="submit" class="btn btn-dark btn-sm">Submit</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </fieldset>
+              </form>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+      <div class="modal fade" id="sign-in-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content signincontent">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Sign-in!</h4>
+            </div>
+            <div class="modal-body">
+              <form id="sign-in" class="border">
+                <fieldset>
+                  <input type="text" name="credentials[email]" placeholder="Email" required>
+                  <input type="password" name="credentials[password]" placeholder="Password" required><br>
+                  <button type="submit" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#sign-in-modal">Submit</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </fieldset>
+              </form>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+      <div class="col-md-8 text-left">
+        <div class="comment-border signed-in-buttons">
+          <button type="button" class="btn btn-dark-in get-button show-all-forums-button">browse forums</button>
+          <button type="button" class="btn btn-dark-in signed-in-buttons" data-toggle="modal" data-target="#create-forum-modal">
+            new forum
+          </button>
+          <button type="button" class="btn btn-dark-in" data-toggle="modal" data-target="#change-password-modal">
+            change password
+          </button>
+        </div>
+      </div>
+      <br />
+
+      <div class="modal fade" id="change-password-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content changepasswordcontent">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Change Password!</h4>
+            </div>
+            <div class="modal-body">
+              <form id="change-password" class="border">
+                <fieldset>
+                  <input type="password" name="passwords[old]" placeholder="Old Password" required>
+                  <input type="password" name="passwords[new]" placeholder="New Password" required><br>
+                  <button type="submit" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#change-password-modal">Submit</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </fieldset>
+              </form>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+      <div class="modal fade" id="create-forum-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content createforumcontent">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">open a forum</h4>
+          </div>
+          <div class="modal-body">
+            <!-- <form id="create-forum" class="border"> -->
+              <fieldset>
+                <form id="create-forum" class="border">
+                  <textarea class="form-control" id="create-forum-body" name="forum[body]" placeholder="body" rows="3" required></textarea>
+                  <button type="submit" class="btn btn-info">Submit</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </form>
+              </fieldset>
+            <!-- </form> -->
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+      <div class="spacer"></div>
+
+      <div id="content" class="zoom"></div>
+      <div id="comments-div" class="zoom"></div>
+
+
+      <div class="modal fade update-forum-modal"  tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content updateforumcontent">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">edit forum</h4>
+          </div>
+          <div class="modal-body">
+            <fieldset>
+              <form id="update-forum-submit" class="border" data-id="">
+                <textarea class="form-control" name="forum[body]" placeholder="body" rows="3" required></textarea>
+                <button type="submit" class="btn btn-dark-in">save changes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </form>
+            </fieldset>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+      <div class="modal fade" id="confirm-delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+                ...
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <form id="confirm-delete-comment" class="border" data-id="">
+              <button type="submit" class="btn btn-dark-in">delete</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-8 text-left">
+  <form id="sign-out">
+    <input type="submit" class="signed-in-buttons btn btn-dark-in sign-out-button" value="sign out">
+  </form>
+</div>
+
+    </body>
+
+</html>
