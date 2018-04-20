@@ -1,4 +1,5 @@
 <div class="forumborder">
+  {{!-- <div class="commenter-image">{{image}}</div> --}}
   <h2 class="forum-header">{{forum.body}}</h2>
   <div class="resource-body">posted by: {{user}}</div>
 
@@ -12,11 +13,13 @@
   </div>
   {{/each}} --}}
 
-
+  <button type="button" class="btn btn-dark-in" data-toggle="modal" data-target="#create-image-modal">
+    Upload Image
+  </button>
   <form class="comment-submit">
     <input name="forum[_id]" type="hidden" value="{{forum._id}}">
     <textarea class="form-control" name="comment[body]" placeholder="comment" rows="3" required></textarea>
     <button type="submit" class="btn btn-dark-in">comment</button>
   </form>
 </div>
-<button type="button" class="btn btn-dark-in get-button show-all-forums-button">back to forums</button>
+<button type="button" class="btn btn-dark-in get-button btn-sm bottom" show-all-forums-button">back to forums</button>

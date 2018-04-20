@@ -1,0 +1,16 @@
+{{#each images as |image|}}
+  <div data-id="{{image}}">
+    {{!-- <div class="blogborder"> --}}
+      {{!-- <ul> --}}
+      {{!-- <li class="resource-header">{{image.title}}</li> --}}
+
+        <div><img class="images-div" src="{{image.url}}"></div>
+        {{!-- <li class="resource-body"><img src="{{image.url}}"></li> --}}
+        {{!-- <button class="image-update btn btn-sm btn-dark-in" data-id={{image.id}}>Update</button> --}}
+        <!-- <br /> -->
+        {{!-- <button class="image-delete btn btn-sm btn-dark-in" data-id={{image.id}}>Delete</button> --}}
+      {{!-- </ul> --}}
+    {{!-- </div> --}}
+  </div>
+{{/each}}
+{{!-- {{image.url}} --}}

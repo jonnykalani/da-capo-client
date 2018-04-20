@@ -78,6 +78,8 @@ const signOutSuccess = function (data) {
   $('#message').delay(2000).slideToggle()
   $('#content').empty()
   $('#comments-div').empty()
+  $('#images-div').empty()
+
 
   store.user = null
 }

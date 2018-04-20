@@ -14,6 +14,10 @@ const userNotCommenter = require('../templates/user-not-commenter.hbs')
 const forumInfoTemplate = require('../templates/forums.hbs')
 const showOneForumTemplate = require('../templates/forum.hbs')
 const forumInfoTemplateWithButtons = require('../templates/forum-with-buttons.hbs')
+const imageTemplate = require('../templates/image.hbs')
+const imageApi = require('../images/image-api.js')
+const userApi = require('../auth/auth-api.js')
+const FormData = require('form-data')
 let forumInfoData
 let identifyForum
 let currentUser
@@ -57,6 +61,7 @@ const getForum = function (event) {
   event.preventDefault()
   forumId = event.target.dataset.id
   identifyForum = event.target.dataset
+  console.log('event.target is', event.target)
   console.log('id in getForum is', forumId)
   console.log('event.target.dataset is', event.target.dataset)
   api.getForum(forumId)
@@ -64,20 +69,21 @@ const getForum = function (event) {
       getForumSuccess(response)
       console.log('response to pass from getForum to getForumSuccess is', response)
     })
-  // commentEvents.getOwnedComments(forumId)
+  // imageApi.getOwnedImages(forumId)
 }
 
 let forumData
-let commentTemplate
-let notCommenterTemplate
-let isCommenterTemplate
+// let commentTemplate
+// let notCommenterTemplate
+// let isCommenterTemplate
 
+let forumOwner
 const getForumSuccess = function (data) {
   const ownerOfViewedBlog = data.forum._owner
+  forumOwner = data.forum._owner
   currentUser = store.user.id
-
+  console.log('data.forum._owner in getForumSuccess is', data.forum._owner)
   const commentsArray = data.forum.comments
-  console.log('commentsArray is', commentsArray)
 
   const checkIfUserIsCommenter = function (array) {
     $('#comments-div').empty()
@@ -89,6 +95,7 @@ const getForumSuccess = function (data) {
           user: store.user.email,
           comment: array[i]
         }))
+        console.log('data.forum.comments is', data.forum.comments)
         console.log('it thinks comment owner is current user and array[i]._owner is', array[i]._owner)
       } else {
         $('#comments-div').append(userNotCommenter({
@@ -97,6 +104,7 @@ const getForumSuccess = function (data) {
           comment: array[i],
           currentUser: store.user.id
         }))
+        console.log('data.forum.comments is', data.forum.comments)
         console.log('it thinks comment owner is NOT user and array[i]._owner is', array[i]._owner)
       }
     }
@@ -110,8 +118,10 @@ const getForumSuccess = function (data) {
       user: store.user.email,
       comments: data.forum.comments,
       currentUser: store.user.id
+      // image: data.forum._owner._image
     })
     console.log('it thinks it belongs to current user')
+    console.log(' data.forum._owner is', ownerOfViewedBlog)
     $('#update-forum-submit').data(data.forum.body.id) // set data-id to data.forum.id
     $('.delete-comment-simple').on('submit', deleteComment)
     // $('body').on('click', '.delete-comment-simple', deleteComment)
@@ -124,8 +134,10 @@ const getForumSuccess = function (data) {
       // commentUser: data.forum.comment
     })
     $('.delete-comment-simple').on('submit', deleteComment)
+    console.log(' data.forum._owner is', ownerOfViewedBlog)
     // $('body').on('click', '.delete-comment-simple', deleteComment)
   }
+  // $('#commenter-image').html()
   $('#message').text('forum loaded')
   $('#message').removeClass('alert-danger').addClass('alert-success').show()
   $('#message').delay(2000).slideToggle()
@@ -138,12 +150,19 @@ const getForumSuccess = function (data) {
     $('.update-forum-modal').modal('show')
   })
   $('#update-forum-submit').on('submit', onUpdateForum)
-  $('#comment-submit').data(data.forum._id)
+  $('.comment-submit').data(data.forum._id)
   $('.comment-submit').on('submit', comment)
+  $('#create-image').on('submit', onUploadImage)
   $('.show-all-forums-button').on('click', () => {
     api.getForums()
       .then(showForums)
   })
+  imageApi.getOwnedImages(forumOwner)
+    .then(imageCreateSuccess)
+    // .then(() => {
+    //   imageApi.getOwnedImages(forumOwner)
+    // })
+    // .then(imageCreateSuccess)
   // $('#confirm-delete-comment').on('submit', commentEvents.delete) // set data-id to data.forum.id
   // $('.delete-comment-simple').on('submit', () => {
   //   console.log('delete was clicked')
@@ -272,6 +291,63 @@ const deleteComment = function (event) {
     .catch(console.error)
 }
 
+let imageInfoData
+
+const onUploadImage = function (event) {
+  event.preventDefault()
+  const formData = new FormData(event.target)
+  // formData.append("username", "Groucho");
+  // formData.append("accountnum", 123456);
+  //
+  // console.log(formData.get("username"));
+  // console.log(formData.get("accountnum"));
+  console.log('formData in onUploadImage is ', formData)
+  // $('#content').append(data)
+  const data = getFormFields(event.target)
+  console.log('data in onUploadImage is ', data)
+
+  $('#comments-div').append(data)
+  imageApi.uploadImage(formData)
+    .then(() => {
+      getForum(forumId)
+    })
+    .catch(console.error)
+}
+
+const onUploadImages = function (data) {
+  console.log('onUploadImages in UI is running')
+  imageApi.getOwnedImages(data.user.id)
+    .then(imageCreateSuccess)
+    .catch(console.error)
+}
+
+const imageCreateSuccess = function (data) {
+  console.log('data in image create succ is', data)
+  $('#images-div').html(imageTemplate({
+    images: data.images
+  }))
+  $('#create-image-modal').modal('hide')
+  $('#message').text('Created image post successfully!')
+  $('#message').removeClass('alert-danger').addClass('alert-success').show()
+  $('form').find('input:not([type="submit"])').val('')
+  $('#comments-div').attr('src', data.image.url)
+  $('#message').delay(1700).slideToggle()
+}
+
+const showImages = function (data) {
+  console.log('data in showImages is', data)
+
+  return data
+}
+
+const imageDeleteSuccess = function (data) {
+  $('#confirmDeleteImageModal').modal('hide')
+  $('#message').text('Deleted image successfully!')
+  $('#message').removeClass('alert-danger').addClass('alert-success').show()
+  $('form').find('input:not([type="submit"])').val('')
+  $('#message').delay(3000).slideToggle()
+}
+
 module.exports = {
   createForumSuccess,
   createForumFailure,
@@ -285,5 +361,9 @@ module.exports = {
   deleteForumSuccess,
   deleteForumFailure,
   showForums,
-  deleteComment
+  deleteComment,
+  onUploadImage,
+  showImages,
+  onUploadImages,
+  imageDeleteSuccess
 }

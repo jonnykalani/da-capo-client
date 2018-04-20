@@ -94,7 +94,7 @@
                 setTimeout(function() {
                     document.getElementById("quotes").innerHTML = quotes[i]
                     textSequence(++i)
-                }, 3500); // 1 second (in milliseconds)
+                }, 2700); // 1 second (in milliseconds)
             } else if (quotes.length == i) { // Loop
                 textSequence(0)
             }
@@ -226,8 +226,26 @@
 
       <div class="spacer"></div>
 
-      <div id="content" class="zoom"></div>
+      <div class="container">
+        <div class="col-md-12 align-middle">
+          <div class="col-md-4 align-middle da-capo" style="display: flex; flex-direction: column;">
+
+            <h3 style="text-align: right;"></h3>
+            <h1 id="images-div" class="zoom"></h1>
+
+          </div>
+
+          <div id="content" class="col-md-8 text-left zoom"></div>
+          <div id="comments-div" class="zoom comments-div"></div>
+
+        </div>
+      </div>
+    </div>
+
+
+      <!-- <div id="content" class="zoom"></div>
       <div id="comments-div" class="zoom"></div>
+      <div id="images-div" class="zoom"></div> -->
 
 
       <div class="modal fade update-forum-modal"  tabindex="-1" role="dialog">
@@ -248,6 +266,33 @@
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+      <div class="modal fade" id="create-image-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content createimagecontent">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Upload Image!</h4>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+
+                    <form id="create-image" method="post" enctype="multipart/form-data">
+                      <!-- action="http://httpbin.org/post"  -->
+                      <!-- <legend>enctype="multipart/form-data"</legend> -->
+                      <label>
+                        image
+                        <input type="file" name="image[file]">
+                        <!-- <input type="submit" val="Upload"> -->
+                      </label>
+                    <button val="Upload" type="submit" class="btn btn-dark-in" data-toggle="modal" data-target="#create-image-modal">Submit</button>
+                    <button type="button" class="btn btn-dark-in" data-dismiss="modal">Close</button>
+                    </form>
+                </fieldset>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
 
       <div class="modal fade" id="confirm-delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

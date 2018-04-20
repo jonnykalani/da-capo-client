@@ -86,11 +86,25 @@ const getUser = function (data) {
   })
 }
 
+const addImageToUser = function (data) {
+  console.log('data in addImageToUser api is', data)
+  return $.ajax({
+    url: config.apiOrigin + '/users/' + data.forum.id,
+    method: 'PATCH',
+    headers: {
+      contentType: 'application/json',
+      Authorization: 'Token token=' + store.user.token
+    },
+    data
+  })
+}
+
 module.exports = {
   signUp,
   signIn,
   changePassword,
   signOut,
   userIndex,
-  getUser
+  getUser,
+  addImageToUser
 }

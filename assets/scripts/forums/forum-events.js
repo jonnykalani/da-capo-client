@@ -55,6 +55,7 @@ const addHandlers = () => {
   $('.show-all-forums-button').on('click', onGetAllForums)
   $('#get-forum').on('submit', onGetForum)
   $('#delete-forum').on('click', onDeleteForum)
+  $('#create-image').on('submit', ui.onUploadImage)
 }
 
 module.exports = {
