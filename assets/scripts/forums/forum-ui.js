@@ -86,6 +86,8 @@ const getForumSuccess = function (data) {
   const commentsArray = data.forum.comments
 
   const checkIfUserIsCommenter = function (array) {
+    $('#images-div').empty()
+
     $('#comments-div').empty()
     array.sort(compare)
     for (let i = 0; i < array.length; i++) {
@@ -209,6 +211,7 @@ const updateForumSuccess = function () {
 }
 
 const updateForumFailure = function () {
+
   // console.log(error)
   $('.update-forum-modal').modal('hide')
   $('#message').text('Error on updating forum!')
@@ -252,6 +255,7 @@ const showForums = function (data) {
   $('#message').delay(2000).slideToggle()
   $('form').find('input:not([type="submit"])').val('')
   $('.show-one-forum-button').on('click', getForum)
+  $('#images-div').empty()
   console.log('end of show forums')
   return data
 }
@@ -323,14 +327,14 @@ const onUploadImages = function (data) {
 
 const imageCreateSuccess = function (data) {
   console.log('data in image create succ is', data)
-  $('#images-div').html(imageTemplate({
+  $('#images-div').append(imageTemplate({
     images: data.images
   }))
   $('#create-image-modal').modal('hide')
   $('#message').text('Created image post successfully!')
   $('#message').removeClass('alert-danger').addClass('alert-success').show()
   $('form').find('input:not([type="submit"])').val('')
-  $('#comments-div').attr('src', data.image.url)
+  // $('#comments-div').attr('src', data.images.url)
   $('#message').delay(1700).slideToggle()
 }
 

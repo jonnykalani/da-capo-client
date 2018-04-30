@@ -17,7 +17,7 @@ $(() => {
   $('#forum-update-open-modal').on('click', () => {
     $('.update-forum-modal').modal('show')
   })
-  // $('images-div').hide()
+  // $('#images-div').hide()
   // $('body').on('click', '.delete-comment-simple', forumUi.deleteComment)
 })
 
